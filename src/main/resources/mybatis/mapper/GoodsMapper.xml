@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.mapper.GoodsMapper">
+    <select id="getList" parameterType="goods" resultType="goods">
+        select g.*,t.name as typeName from goods g
+        left join goods_type t on t.id=g.typeId
+        <where>
+            <if test="state>0">
+                g.state = #{state}
+            </if>
+            <if test="id!=null and id!=''">
+                and g.id = #{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and g.name like '%${name}%'
+            </if>
+            <if test="buwei!=null and buwei!=''">
+                and g.buwei like '%${buwei}%'
+            </if>
+            <if test="keyword!=null and keyword!=''">
+                and (g.name like '%${keyword}%' or g.buwei like '%${keyword}%')
+            </if>
+            <if test="biaozhun!=null and biaozhun!=''">
+                and g.biaozhun like '%${biaozhun}%'
+            </if>
+            <if test="coverImage!=null and coverImage!=''">
+                and g.coverImage = #{coverImage}
+            </if>
+            <if test="score!=null and score!=''">
+                and g.score = #{score}
+            </if>
+            <if test="typeId!=null and typeId!=''">
+                and g.typeId = #{typeId}
+            </if>
+            <if test="level!=null and level!=''">
+                and g.level = #{level}
+            </if>
+
+        </where>
+    </select>
+
+    <insert id="add" parameterType="goods">
+        insert into goods(name,buwei,biaozhun,coverImage,score,typeId,level,createTime,updateTime)
+        values(#{name},#{buwei},#{biaozhun},#{coverImage},#{score},#{typeId},#{level},now(),now())
+    </insert>
+
+    <update id="delete" parameterType="goods">
+        update goods set state=2 where id=#{id}
+    </update>
+
+    <update id="update" parameterType="goods">
+        update goods set
+        name=#{name},
+        buwei=#{buwei},
+        biaozhun=#{biaozhun},
+        buwei=#{buwei},
+        coverImage=#{coverImage},
+        score=#{score},
+        typeId=#{typeId},
+        level=#{level},
+        updateTime=now()
+        where id=#{id}
+    </update>
+
+    <update id="updateState" parameterType="goods">
+        update goods set state=#{state} where id=#{id}
+    </update>
+
+</mapper>
+
+

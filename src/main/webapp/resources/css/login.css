@@ -1,0 +1,28 @@
+.container-login {
+    width: 400px;
+    margin: auto;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.layui-form-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.layui-form-item label {
+    margin-right: -20px;
+    z-index: 100;
+}
+
+.layui-form-item input {
+    padding-left: 25px;
+}

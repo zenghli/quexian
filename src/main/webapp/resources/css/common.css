@@ -1,0 +1,14 @@
+.image-upload-show {
+    display: inline-block;
+    position: relative;
+}
+
+.image-upload-show img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px #c1c1c1;
+    position: absolute;
+    right: -350px;
+    top: -100px;
+}

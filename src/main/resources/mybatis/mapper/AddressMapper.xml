@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.mapper.AddressMapper">
+    <select id="getList" parameterType="address" resultType="address">
+        select g.* from address g
+        <where>
+            <if test="state>0">
+                g.state = #{state}
+            </if>
+            <if test="id!=null and id!=''">
+                and g.id = #{id}
+            </if>
+            <if test="name!=null and name!=''">
+                and g.name like '%${name}%'
+            </if>
+            <if test="phone!=null and phone!=''">
+                and g.phone like '%${phone}%'
+            </if>
+            <if test="address!=null and address!=''">
+                and g.address like '%${address}%'
+            </if>
+            <if test="uid!=null and uid!=''">
+                and g.uid = #{uid}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="address">
+        insert into address(name,phone,address,uid)
+        values(#{name},#{phone},#{address},#{uid})
+    </insert>
+
+    <update id="delete" parameterType="address">
+        update address set state=2 where id=#{id}
+    </update>
+
+    <update id="update" parameterType="address">
+        update address set
+        name=#{name},
+        phone=#{phone},
+        address=#{address},
+        uid=#{uid}
+        where id=#{id}
+    </update>
+
+    <update id="updateState" parameterType="address">
+        update address set state=#{state} where id=#{id}
+    </update>
+
+    <select id="getById" parameterType="integer" resultType="address">
+        select * from address where id=#{id}
+    </select>
+
+</mapper>
+
+

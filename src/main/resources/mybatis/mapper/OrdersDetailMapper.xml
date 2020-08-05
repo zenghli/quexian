@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.mapper.OrdersDetailMapper">
+    <select id="getList" parameterType="ordersDetail" resultType="ordersDetail">
+        select g.* from orders_detail g
+        <where>
+            <if test="id!=null and id!=''">
+                and g.id = #{id}
+            </if>
+            <if test="goodsId!=null and goodsId!=''">
+                and g.goodsId = #{goodsId}
+            </if>
+            <if test="ordersId!=null and ordersId!=''">
+                and g.ordersId = #{ordersId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="ordersDetail">
+        insert into orders_detail(goodsId,ordersId,num,price)
+        values(#{goodsId},#{ordersId},#{num},#{price})
+    </insert>
+
+    <update id="update" parameterType="ordersDetail">
+        update orders_detail set
+        goodsId=#{goodsId},
+        ordersId=#{ordersId},
+        num=#{num},
+        price=#{price}
+        where id=#{id}
+    </update>
+
+    <select id="getListByOid" parameterType="integer" resultType="ordersDetail">
+        select od.*,g.name,g.coverImage from orders_detail od
+        left join goods g on g.id = od.goodsId
+        where od.ordersId = #{ordersId}
+    </select>
+
+</mapper>
+
+
